@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EAD - Comunicação Escrita | ESP Floripa</title>
+    <title>EAD - Comunicação Escrita (Parte 1) | ESP Floripa</title>
     
     <!-- React & ReactDOM (Via CDN) -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -22,10 +22,8 @@
         body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
         .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
         
-        /* Revertendo o header da sidebar para o gradiente original */
         .gradient-header { background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%); }
         
-        /* Novo estilo para o Banner Principal */
         .main-banner {
             background-image: linear-gradient(to right, rgba(255, 255, 255, 0.95) 40%, rgba(255, 255, 255, 0.6) 100%), url('https://i.imgur.com/XKMEd6N.png');
             background-size: cover;
@@ -33,16 +31,12 @@
             border-bottom: 4px solid #0f766e;
         }
 
-        /* Animação suave */
-        .animate-fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
+        .animate-fade-in { animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
@@ -63,7 +57,7 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // --- Ícones SVG (Inline para evitar erros de dependência) ---
+        // --- Ícones SVG ---
         const Icons = {
             BookOpen: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>,
             Play: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>,
@@ -81,16 +75,15 @@
             Layout: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><line x1="3" x2="21" y1="9" y2="9"></line><line x1="9" x2="9" y1="21" y2="9"></line></svg>,
             ExternalLink: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" x2="21" y1="14" y2="3"></line></svg>,
             Info: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>,
-            // Novos ícones para a Atividade 4
             Shield: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>,
             Camera: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>,
             BarChart: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>,
             Users: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>,
             AlertTriangle: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>,
-            Settings: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+            Settings: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>,
+            Home: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>,
+            ClipboardCheck: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
         };
-
-        // --- Componentes Auxiliares ---
 
         const SectionHeader = ({ iconName, title, duration, isCompleted, onToggle }) => {
             const Icon = Icons[iconName];
@@ -102,10 +95,12 @@
                         </div>
                         <div>
                             <h2 className="text-xl font-bold text-gray-800">{title}</h2>
-                            <div className="flex items-center text-sm text-gray-500 gap-2">
-                                <Icons.Clock size={14} />
-                                <span>{duration}</span>
-                            </div>
+                            {duration && (
+                                <div className="flex items-center text-sm text-gray-500 gap-2">
+                                    <Icons.Clock size={14} />
+                                    <span>{duration}</span>
+                                </div>
+                            )}
                         </div>
                     </div>
                     <button 
@@ -137,10 +132,8 @@
                     <div className="grid grid-cols-[80px_1fr] gap-y-2 mb-4 border-b pb-4">
                         <span className="text-gray-500 font-medium">De:</span>
                         <span className="font-semibold text-gray-800">Antenor da Silva &lt;antenor.silva@saude.floripa.sc.gov.br&gt;</span>
-                        
                         <span className="text-gray-500 font-medium">Para:</span>
                         <span className="text-gray-800">José Santos</span>
-                        
                         <span className="text-gray-500 font-medium">Assunto:</span>
                         <span className="font-bold text-teal-700">Revisar documento (10 minutos) - Atualização do projeto UPA - Prazos ajustados</span>
                     </div>
@@ -161,37 +154,10 @@
             </div>
         );
 
-        const PortariaStructure = () => (
-            <div className="space-y-4 my-6">
-                <div className="flex gap-4 p-4 bg-white rounded-lg border-l-4 border-blue-500 shadow-sm">
-                    <div className="font-bold text-blue-500 w-24 shrink-0">1. Cabeçalho</div>
-                    <div className="text-gray-600 text-sm">Identificação do órgão (Ministério, Secretaria), numeração, data e localidade.</div>
-                </div>
-                <div className="flex gap-4 p-4 bg-white rounded-lg border-l-4 border-indigo-500 shadow-sm">
-                    <div className="font-bold text-indigo-500 w-24 shrink-0">2. Ementa</div>
-                    <div className="text-gray-600 text-sm">Resumo breve e objetivo do propósito da portaria (Ex: "Dispõe sobre...").</div>
-                </div>
-                <div className="flex gap-4 p-4 bg-white rounded-lg border-l-4 border-purple-500 shadow-sm">
-                    <div className="font-bold text-purple-500 w-24 shrink-0">3. Preâmbulo</div>
-                    <div className="text-gray-600 text-sm">Fundamentação legal ("No uso das atribuições...") e Justificativa ("Considerando...").</div>
-                </div>
-                <div className="flex gap-4 p-4 bg-white rounded-lg border-l-4 border-teal-500 shadow-sm">
-                    <div className="font-bold text-teal-500 w-24 shrink-0">4. Corpo</div>
-                    <div className="text-gray-600 text-sm">Artigos (temas principais), Parágrafos (detalhes), Incisos e Alíneas (listas).</div>
-                </div>
-                <div className="flex gap-4 p-4 bg-white rounded-lg border-l-4 border-green-500 shadow-sm">
-                    <div className="font-bold text-green-500 w-24 shrink-0">5. Final</div>
-                    <div className="text-gray-600 text-sm">Vigência, Revogação e Assinatura da autoridade competente.</div>
-                </div>
-            </div>
-        );
-
-        // --- Componente Principal ---
-
         const App = () => {
             const [activeTab, setActiveTab] = useState(0);
-            // Ajustado para 6 atividades
-            const [completed, setCompleted] = useState([false, false, false, false, false, false]);
+            // Agora com 5 estados de "completado" (0=Introdução + 4 Atividades)
+            const [completed, setCompleted] = useState([false, false, false, false, false, false]); 
             const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
             const toggleComplete = (index) => {
@@ -200,15 +166,16 @@
                 setCompleted(newCompleted);
             };
 
+            // Cálculo do progresso (ignorando a Introdução se preferir, ou incluindo-a. Aqui inclui tudo)
             const progress = Math.round((completed.filter(Boolean).length / completed.length) * 100);
 
             const activities = [
-                { id: 0, title: "1ª Ativ: Boas Práticas E-mails", icon: 'Mail', duration: "30 min" }, // Combinada
-                { id: 1, title: "2ª Ativ: Boas Práticas WhatsApp", icon: 'MessageCircle', duration: "30 min" }, // Renumerada
-                { id: 2, title: "3ª Ativ: Boas Práticas em Redes Sociais", icon: 'Users', duration: "45 min" }, // Renumerada
-                { id: 3, title: "4ª Ativ: Guias Oficiais Leitura", icon: 'Share2', duration: "30 min" }, // Renumerada
-                { id: 4, title: "5ª Ativ: Normas Legais", icon: 'FileText', duration: "30 min" }, // Renumerada
-                { id: 5, title: "6ª Ativ: Exercício Prático", icon: 'PenTool', duration: "100 min" }, // Renumerada
+                { id: 0, title: "Introdução", icon: 'Home', duration: "5 min" },
+                { id: 1, title: "1ª Ativ: Boas Práticas E-mails", icon: 'Mail', duration: "20 min" },
+                { id: 2, title: "2ª Ativ: Boas Práticas no uso de Mensageria (Whatsapp, Telegram, SMS, etc.)", icon: 'MessageCircle', duration: "20 min" },
+                { id: 3, title: "3ª Ativ: Boas Práticas em Redes Sociais", icon: 'Users', duration: "20 min" },
+                { id: 4, title: "4ª Ativ: Guias Oficiais Leitura", icon: 'Share2', duration: "30 min" },
+                { id: 5, title: "5ª Ativ: Exercício Final", icon: 'ClipboardCheck', duration: "25 min" } // Nova Atividade
             ];
 
             const scrollToActivity = (index) => {
@@ -219,53 +186,48 @@
 
             const renderContent = () => {
                 switch(activeTab) {
-                    case 0: // Boas Práticas E-mails (Combinada)
+                    case 0: // Introdução
                         return (
                             <div className="animate-fade-in">
-                                <SectionHeader 
-                                    iconName="Mail" 
-                                    title="Boas Práticas E-mails" 
-                                    duration="30 minutos" 
-                                    isCompleted={completed[0]}
-                                    onToggle={() => toggleComplete(0)}
-                                />
+                                <SectionHeader iconName="Home" title="Introdução ao Módulo" duration="5 minutos" isCompleted={completed[0]} onToggle={() => toggleComplete(0)} />
+                                <div className="bg-white p-8 rounded-xl shadow-md border-l-4 border-teal-600 mb-8">
+                                    <h3 className="text-xl font-bold text-teal-800 mb-4 flex items-center gap-2">
+                                        <Icons.Info size={24} className="text-teal-600" />
+                                        Importância das Boas Práticas na Comunicação
+                                    </h3>
+                                    <div className="text-gray-700 leading-relaxed text-justify space-y-4">
+                                        <p>
+                                            A adoção de Boas Práticas de comunicação por meios eletrônicos — como e-mail institucional, SMS, WhatsApp, Telegram e redes sociais — é essencial para instituições públicas, especialmente na área da saúde, pois garante segurança da informação, transparência, rastreabilidade e uniformidade no relacionamento com a população.
+                                        </p>
+                                        <p>
+                                            Esses canais, quando usados de forma padronizada e responsável, reduzem riscos de vazamento de dados sensíveis, fortalecem a credibilidade institucional, evitam ruídos de comunicação e asseguram que mensagens oficiais circulem com linguagem adequada, fontes verificadas e propósito alinhado às políticas públicas de saúde.
+                                        </p>
+                                        <p>
+                                            Além disso, boas práticas promovem comunicação mais ágil e acessível, ampliam o alcance das ações de educação em saúde e contribuem para a construção de vínculos de confiança entre gestores, profissionais e cidadãos.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        );
+
+                    case 1: // 1ª Ativ: Boas Práticas E-mails
+                        return (
+                            <div className="animate-fade-in">
+                                <SectionHeader iconName="Mail" title="Boas Práticas E-mails" duration="20 minutos" isCompleted={completed[1]} onToggle={() => toggleComplete(1)} />
                                 <div className="space-y-8">
-                                    {/* Parte do Vídeo */}
                                     <div className="bg-white rounded-xl shadow-sm p-6">
                                         <h3 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2">Introdução: Vídeo Educativo</h3>
-                                        <p className="text-gray-700 mb-4">
-                                            Nos últimos anos o uso de e-mails em comunicações institucionais tem perdido espaço para aplicativos de mensagens, 
-                                            mas ainda é crucial em muitas situações formais.
-                                        </p>
+                                        <p className="text-gray-700 mb-4">Nos últimos anos o uso de e-mails em comunicações institucionais tem perdido espaço para aplicativos de mensagens, mas ainda é crucial em muitas situações formais.</p>
                                         <div className="aspect-w-16 aspect-h-9 bg-gray-900 rounded-lg overflow-hidden shadow-lg mb-4">
-                                            <iframe 
-                                                className="w-full h-96" 
-                                                src="https://www.youtube.com/embed/E438kYS-I6k" 
-                                                title="YouTube video player" 
-                                                frameBorder="0" 
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                                allowFullScreen>
-                                            </iframe>
+                                            <iframe className="w-full h-96" src="https://www.youtube.com/embed/E438kYS-I6k" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                         </div>
                                         <p className="text-sm text-gray-500 text-center italic">* Vídeo: The Email We All Need to Send (Harvard Business Review).</p>
                                     </div>
-
-                                    {/* Parte das Dicas e Leitura */}
                                     <div className="bg-white rounded-xl shadow-sm p-6">
                                         <h3 className="text-lg font-bold text-gray-800 mb-6 border-b pb-2">Dicas para Redação de E-mails Institucionais</h3>
                                         <div className="grid md:grid-cols-2 gap-6">
                                             <div className="space-y-4">
-                                                {[
-                                                    { t: "1. Assunto Claro", d: "Indique o propósito e o tempo estimado para a ação." },
-                                                    { t: "2. Destinatários", d: "Apenas os estritamente necessários. Questione: essa pessoa tem uma ação a realizar?" },
-                                                    { t: "3. Saudação", d: "Adapte ao grau de formalidade (Prezado vs Olá)." },
-                                                    { t: "4. Direto ao Ponto", d: "Objetivo logo no início. Parágrafos curtos." },
-                                                    { t: "5. Tom e Linguagem", d: "Profissional. Sem gírias ou emojis excessivos." },
-                                                    { t: "6. Específico", d: "Detalhes suficientes para evitar 'vai-e-vem'. Use listas." },
-                                                    { t: "7. Conclusão", d: "Pedido de ação claro e prazo de resposta razoável." },
-                                                    { t: "8. Despedida", d: "Cordial (Atenciosamente/Abraços) + Assinatura completa." },
-                                                    { t: "9. Revisão", d: "Cheque gramática, ortografia e anexos antes de enviar." }
-                                                ].map((tip, idx) => (
+                                                {[ { t: "1. Assunto Claro", d: "Indique o propósito e o tempo estimado para a ação." }, { t: "2. Destinatários", d: "Apenas os estritamente necessários. Questione: essa pessoa tem uma ação a realizar?" }, { t: "3. Saudação", d: "Adapte ao grau de formalidade (Prezado vs Olá)." }, { t: "4. Direto ao Ponto", d: "Objetivo logo no início. Parágrafos curtos." }, { t: "5. Tom e Linguagem", d: "Profissional. Sem gírias ou emojis excessivos." }, { t: "6. Específico", d: "Detalhes suficientes para evitar 'vai-e-vem'. Use listas." }, { t: "7. Conclusão", d: "Pedido de ação claro e prazo de resposta razoável." }, { t: "8. Despedida", d: "Cordial (Atenciosamente/Abraços) + Assinatura completa." }, { t: "9. Revisão", d: "Cheque gramática, ortografia e anexos antes de enviar." } ].map((tip, idx) => (
                                                     <div key={idx} className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-teal-500 hover:bg-teal-50 transition-colors">
                                                         <h3 className="font-bold text-teal-800 mb-1">{tip.t}</h3>
                                                         <p className="text-gray-600 text-sm">{tip.d}</p>
@@ -274,13 +236,9 @@
                                             </div>
                                             <div>
                                                 <div className="sticky top-6">
-                                                    <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-                                                        <Icons.Layout size={20} /> Exemplo de Aplicação
-                                                    </h3>
+                                                    <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2"><Icons.Layout size={20} /> Exemplo de Aplicação</h3>
                                                     <EmailSimulator />
-                                                    <div className="mt-4 bg-blue-50 p-4 rounded-lg text-sm text-blue-800">
-                                                        <strong>Análise do Exemplo:</strong> Observe como o assunto inclui o tempo estimado (10 min), a saudação é formal, o corpo indica exatamente onde olhar (págs 10 e 11) e há um prazo claro para resposta.
-                                                    </div>
+                                                    <div className="mt-4 bg-blue-50 p-4 rounded-lg text-sm text-blue-800"><strong>Análise do Exemplo:</strong> Observe como o assunto inclui o tempo estimado (10 min), a saudação é formal, o corpo indica exatamente onde olhar (págs 10 e 11) e há um prazo claro para resposta.</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -288,543 +246,133 @@
                                 </div>
                             </div>
                         );
-
-                    case 1: // WhatsApp (Renumerada)
+                    case 2:
                         const whatsappGuides = [
-                            {
-                                id: 1,
-                                title: "1. Configuração Inicial",
-                                icon: "Settings", // Alterado de "User" para "Settings"
-                                details: [
-                                    { sub: "1.1. Imagem e Nome", text: "Use foto profissional/neutra e nome completo. Evite apelidos." },
-                                    { sub: "1.2. Privacidade", text: "Ajuste configurações para proteger informações pessoais." }
-                                ]
-                            },
-                            {
-                                id: 2,
-                                title: "2. Criação de Grupos",
-                                icon: "Layout",
-                                details: [
-                                    { sub: "2.1. Objetivo", text: "Finalidade específica alinhada à instituição." },
-                                    { sub: "2.2. Nome", text: "Objetivo e claro." },
-                                    { sub: "2.3. Participantes", text: "Apenas envolvidos diretos; avise antes de adicionar." },
-                                    { sub: "2.4. Regras", text: "Defina horários e tipos de conteúdo permitidos." }
-                                ]
-                            },
-                            {
-                                id: 3,
-                                title: "3. Horários e Frequência",
-                                icon: "Clock",
-                                details: [
-                                    { sub: "3.1. Comercial", text: "Envie durante o expediente, salvo acordos prévios." },
-                                    { sub: "3.2. Urgências", text: "Apenas casos essenciais fora do horário. Justifique a urgência." }
-                                ]
-                            },
-                            {
-                                id: 4,
-                                title: "4. Redação de Mensagens",
-                                icon: "PenTool",
-                                details: [
-                                    { sub: "4.1. Clareza", text: "Seja direto. Evite mensagens longas." },
-                                    { sub: "4.2. Formalidade", text: "Linguagem respeitosa. Sem gírias ou excesso de emojis." },
-                                    { sub: "4.3. Áudios", text: "Se necessário, mantenha-o breve." },
-                                    { sub: "4.4. Confirmação", text: "Solicite/envie confirmação de leitura se preciso." }
-                                ]
-                            },
-                            {
-                                id: 5,
-                                title: "5. Compartilhamento",
-                                icon: "Share2",
-                                details: [
-                                    { sub: "5.1. Pertinência", text: "Conteúdo relevante ao propósito." },
-                                    { sub: "5.2. Confidencialidade", text: "Jamais compartilhe dados sensíveis sem autorização." },
-                                    { sub: "5.3. Links/Mídias", text: "Verifique a fonte antes de encaminhar." }
-                                ]
-                            },
-                            {
-                                id: 6,
-                                title: "6. Etiqueta na Interação",
-                                icon: "MessageCircle",
-                                details: [
-                                    { sub: "6.1. Volume", text: "Reúna informações em uma única mensagem." },
-                                    { sub: "6.2. Rapidez", text: "Responda em tempo hábil (especialmente prioridades)." },
-                                    { sub: "6.3. Cordialidade", text: "Evite tons agressivos." },
-                                    { sub: "6.4. Feedback", text: "Responda solicitações de forma clara." }
-                                ]
-                            },
-                            {
-                                id: 7,
-                                title: "7. Mensagens Individuais",
-                                icon: "User",
-                                details: [
-                                    { sub: "7.1. Objetividade", text: "Informe o assunto de imediato." },
-                                    { sub: "7.2. Respeito", text: "Evite insistências. Aguarde tempo razoável." }
-                                ]
-                            },
-                            {
-                                id: 8,
-                                title: "8. Conflitos",
-                                icon: "Info",
-                                details: [
-                                    { sub: "8.1. Uso Adequado", text: "Trate questões delicadas pessoalmente." },
-                                    { sub: "8.2. Tom de Voz", text: "Mantenha a neutralidade em divergências." }
-                                ]
-                            },
-                            {
-                                id: 9,
-                                title: "9. Atualização",
-                                icon: "CheckCircle",
-                                details: [
-                                    { sub: "9.1. Capacitação", text: "Oriente periodicamente sobre o uso." },
-                                    { sub: "9.2. Regras", text: "Revise o guia regularmente." }
-                                ]
-                            }
+                            { id: 1, title: "1. Configuração Inicial", icon: "Settings", details: [ { sub: "1.1. Imagem e Nome", text: "Use foto profissional/neutra e nome completo. Evite apelidos." }, { sub: "1.2. Privacidade", text: "Ajuste configurações para proteger informações pessoais." } ] },
+                            { id: 2, title: "2. Criação de Grupos", icon: "Layout", details: [ { sub: "2.1. Objetivo", text: "Finalidade específica alinhada à instituição." }, { sub: "2.2. Nome", text: "Objetivo e claro." }, { sub: "2.3. Participantes", text: "Apenas envolvidos diretos; avise antes de adicionar." }, { sub: "2.4. Regras", text: "Defina horários e tipos de conteúdo permitidos." } ] },
+                            { id: 3, title: "3. Horários e Frequência", icon: "Clock", details: [ { sub: "3.1. Comercial", text: "Envie durante o expediente, salvo acordos prévios." }, { sub: "3.2. Urgências", text: "Apenas casos essenciais fora do horário. Justifique a urgência." } ] },
+                            { id: 4, title: "4. Redação de Mensagens", icon: "PenTool", details: [ { sub: "4.1. Clareza", text: "Seja direto. Evite mensagens longas." }, { sub: "4.2. Formalidade", text: "Linguagem respeitosa. Sem gírias ou excesso de emojis." }, { sub: "4.3. Áudios", text: "Se necessário, mantenha-o breve." }, { sub: "4.4. Confirmação", text: "Solicite/envie confirmação de leitura se preciso." } ] },
+                            { id: 5, title: "5. Compartilhamento", icon: "Share2", details: [ { sub: "5.1. Pertinência", text: "Conteúdo relevante ao propósito." }, { sub: "5.2. Confidencialidade", text: "Jamais compartilhe dados sensíveis sem autorização." }, { sub: "5.3. Links/Mídias", text: "Verifique a fonte antes de encaminhar." } ] },
+                            { id: 6, title: "6. Etiqueta na Interação", icon: "MessageCircle", details: [ { sub: "6.1. Volume", text: "Reúna informações em uma única mensagem." }, { sub: "6.2. Rapidez", text: "Responda em tempo hábil (especialmente prioridades)." }, { sub: "6.3. Cordialidade", text: "Evite tons agressivos." }, { sub: "6.4. Feedback", text: "Responda solicitações de forma clara." } ] },
+                            { id: 7, title: "7. Mensagens Individuais", icon: "User", details: [ { sub: "7.1. Objetividade", text: "Informe o assunto de imediato." }, { sub: "7.2. Respeito", text: "Evite insistências. Aguarde tempo razoável." } ] },
+                            { id: 8, title: "8. Conflitos", icon: "Info", details: [ { sub: "8.1. Uso Adequado", text: "Trate questões delicadas pessoalmente." }, { sub: "8.2. Tom de Voz", text: "Mantenha a neutralidade em divergências." } ] },
+                            { id: 9, title: "9. Atualização", icon: "CheckCircle", details: [ { sub: "9.1. Capacitação", text: "Oriente periodicamente sobre o uso." }, { sub: "9.2. Regras", text: "Revise o guia regularmente." } ] }
                         ];
-
-                        // Paleta WhatsApp
-                        const waGreenDark = "#075e54"; // Verde Escuro (Header/Fundo Principal)
-                        const waGreenLight = "#25d366"; // Verde Claro (Ícones/Destaques)
-                        const waGreenBackground = "#dcf8c6"; // Fundo Balão Mensagem (Verso/Detalhes)
-                        const waBeige = "#ece5dd"; // Fundo Chat (Fundo do Card)
-                        const waTeal = "#128c7e"; // Verde Petróleo (Bordas/Títulos)
-
+                        const waGreenDark = "#075e54"; const waGreenLight = "#25d366"; const waGreenBackground = "#dcf8c6"; const waBeige = "#ece5dd"; const waTeal = "#128c7e";
                         return (
                             <div className="animate-fade-in">
-                                <SectionHeader 
-                                    iconName="MessageCircle" 
-                                    title="Boas Práticas no WhatsApp Corporativo" 
-                                    duration="30 minutos"
-                                    isCompleted={completed[1]}
-                                    onToggle={() => toggleComplete(1)}
-                                />
+                                <SectionHeader iconName="MessageCircle" title="Boas Práticas no uso de Mensageria (Whatsapp, Telegram, SMS, etc.)" duration="20 minutos" isCompleted={completed[2]} onToggle={() => toggleComplete(2)} />
                                 <div className="mb-6 p-6 rounded-xl shadow-sm border-l-4" style={{ backgroundColor: waBeige, borderColor: waGreenDark }}>
                                     <h3 className="text-lg font-bold mb-2" style={{ color: waGreenDark }}>Guia de Uso Institucional</h3>
-                                    <p style={{ color: '#4a4a4a' }}>
-                                        O WhatsApp é uma ferramenta poderosa, mas exige cuidados específicos para garantir profissionalismo e respeito às hierarquias.
-                                        Passe o mouse (ou toque) nos cartões abaixo para ver os detalhes de cada diretriz.
-                                    </p>
+                                    <p style={{ color: '#4a4a4a' }}>Os serviços de mensageria, como Whatsapp e outros, são ferramentas poderosas, mas exigem cuidados específicos para garantir profissionalismo e respeito às hierarquias. Passe o mouse (ou toque) nos cartões abaixo para ver os detalhes de cada diretriz.</p>
                                 </div>
-                                
                                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                                     {whatsappGuides.map((guide) => (
                                         <div key={guide.id} className="flip-card group bg-transparent w-full h-80 perspective-1000 cursor-pointer">
                                             <div className="flip-card-inner relative w-full h-full text-center transition-transform duration-700 transform-style-3d shadow-md rounded-xl">
-                                                
-                                                {/* Frente do Card */}
-                                                <div className="absolute w-full h-full backface-hidden rounded-xl flex flex-col items-center justify-center p-6" 
-                                                     style={{ backgroundColor: 'white', border: `2px solid ${waGreenBackground}` }}>
-                                                    <div className="p-4 rounded-full mb-4 text-white shadow-sm" style={{ backgroundColor: waGreenLight }}>
-                                                        {Icons[guide.icon] ? React.createElement(Icons[guide.icon], { size: 32 }) : null}
-                                                    </div>
+                                                <div className="absolute w-full h-full backface-hidden rounded-xl flex flex-col items-center justify-center p-6" style={{ backgroundColor: 'white', border: `2px solid ${waGreenBackground}` }}>
+                                                    <div className="p-4 rounded-full mb-4 text-white shadow-sm" style={{ backgroundColor: waGreenLight }}>{Icons[guide.icon] ? React.createElement(Icons[guide.icon], { size: 32 }) : null}</div>
                                                     <h3 className="text-xl font-bold" style={{ color: waTeal }}>{guide.title}</h3>
                                                     <p className="text-xs mt-4 uppercase tracking-widest font-semibold" style={{ color: waGreenDark }}>Ver Detalhes</p>
                                                 </div>
-
-                                                {/* Verso do Card */}
-                                                <div className="absolute w-full h-full backface-hidden rotate-y-180 rounded-xl p-6 flex flex-col justify-center text-left overflow-y-auto"
-                                                     style={{ backgroundColor: waGreenDark, color: 'white' }}>
+                                                <div className="absolute w-full h-full backface-hidden rotate-y-180 rounded-xl p-6 flex flex-col justify-center text-left overflow-y-auto" style={{ backgroundColor: waGreenDark, color: 'white' }}>
                                                     <h4 className="font-bold border-b pb-2 mb-3 text-lg" style={{ borderColor: waGreenLight }}>{guide.title}</h4>
-                                                    <ul className="space-y-3 text-sm">
-                                                        {guide.details.map((detail, idx) => (
-                                                            <li key={idx}>
-                                                                <span className="font-bold block text-xs" style={{ color: waGreenBackground }}>{detail.sub}</span>
-                                                                <span className="leading-tight">{detail.text}</span>
-                                                            </li>
-                                                        ))}
-                                                    </ul>
+                                                    <ul className="space-y-3 text-sm">{guide.details.map((detail, idx) => ( <li key={idx}><span className="font-bold block text-xs" style={{ color: waGreenBackground }}>{detail.sub}</span><span className="leading-tight">{detail.text}</span></li>))}</ul>
                                                 </div>
-
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                             </div>
                         );
-                    
-                    case 2: // Redes Sociais (Renumerada)
+                    case 3:
                         const socialMediaGuides = [
-                            {
-                                id: 1,
-                                title: "Objetivo das Redes",
-                                icon: "Layout",
-                                details: [
-                                    { sub: "Serviço ao Cidadão", text: "Canal ágil para responder, receber reclamações e sugestões." },
-                                    { sub: "Aprofundar Notícias", text: "Divulgar informações municipais com maior profundidade (vídeos, infográficos)." },
-                                    { sub: "Emergências", text: "Comunicação imediata em alertas ou incidentes." }
-                                ]
-                            },
-                            {
-                                id: 2,
-                                title: "1. Comunicação Clara",
-                                icon: "MessageCircle",
-                                details: [
-                                    { sub: "Linguagem Acessível", text: "Evite jargões e termos técnicos." },
-                                    { sub: "Objetividade", text: "Vá direto ao ponto com informações completas." },
-                                    { sub: "Correção", text: "Revise gramática e ortografia sempre." }
-                                ]
-                            },
-                            {
-                                id: 3,
-                                title: "2. Postagens Educativas",
-                                icon: "BookOpen",
-                                details: [
-                                    { sub: "Pautas", text: "Definidas pela Sec. de Comunicação baseada no interesse público." },
-                                    { sub: "Formato", text: "Preferencialmente Reels (vertical) ou Cards." },
-                                    { sub: "Conteúdo", text: "Eduque sobre direitos e serviços. Não repasse Fake News." }
-                                ]
-                            },
-                            {
-                                id: 4,
-                                title: "3. Transparência",
-                                icon: "CheckCircle",
-                                details: [
-                                    { sub: "Confiabilidade", text: "Verifique todas as fontes antes de postar." },
-                                    { sub: "Responsabilidade", text: "Assuma erros e corrija informações incorretas rapidamente." }
-                                ]
-                            },
-                            {
-                                id: 5,
-                                title: "4. Engajamento",
-                                icon: "Users",
-                                details: [
-                                    { sub: "Respostas", text: "Responda dúvidas com precisão e educação." },
-                                    { sub: "Feedback", text: "Use as redes para coletar sugestões da população." },
-                                    { sub: "Respeito", text: "Trate todos com respeito, mesmo em discordâncias." }
-                                ]
-                            },
-                            {
-                                id: 6,
-                                title: "5. Privacidade e Neutralidade",
-                                icon: "Shield",
-                                details: [
-                                    { sub: "Dados Pessoais", text: "Nunca compartilhe dados de cidadãos sem consentimento." },
-                                    { sub: "Imparcialidade", text: "Trate todos de forma justa, sem discriminação." },
-                                    { sub: "Sem Política", text: "Evite manifestações político-partidárias." }
-                                ]
-                            },
-                            {
-                                id: 7,
-                                title: "6. Imagens e Direitos",
-                                icon: "Camera",
-                                details: [
-                                    { sub: "Autorização", text: "Use imagens/vídeos apenas com permissão." },
-                                    { sub: "Créditos", text: "Sempre dê crédito aos autores." },
-                                    { sub: "Campanhas", text: "Devem estar de acordo com as leis vigentes." }
-                                ]
-                            },
-                            {
-                                id: 8,
-                                title: "7. Monitoramento e Ética",
-                                icon: "BarChart",
-                                details: [
-                                    { sub: "Análise", text: "Acompanhe o engajamento e ajuste estratégias." },
-                                    { sub: "Integridade", text: "Mantenha comportamento ético em todas interações." },
-                                    { sub: "Empatia", text: "Mostre compreensão, especialmente em reclamações." }
-                                ]
-                            },
-                            {
-                                id: 9,
-                                title: "Regras de Convivência",
-                                icon: "AlertTriangle",
-                                details: [
-                                    { sub: "Proibido", text: "Linguagem ofensiva, ameaças, spam e flood." },
-                                    { sub: "Preconceito", text: "Comentários racistas/LGBTfóbicos serão apagados e usuário bloqueado." },
-                                    { sub: "Consequências", text: "Advertência, ocultação ou bloqueio do perfil." }
-                                ]
-                            }
+                            { id: 1, title: "Objetivo das Redes", icon: "Layout", details: [ { sub: "Serviço ao Cidadão", text: "Canal ágil para responder, receber reclamações e sugestões." }, { sub: "Aprofundar Notícias", text: "Divulgar informações municipais com maior profundidade (vídeos, infográficos)." }, { sub: "Emergências", text: "Comunicação imediata em alertas ou incidentes." } ] },
+                            { id: 2, title: "1. Comunicação Clara", icon: "MessageCircle", details: [ { sub: "Linguagem Acessível", text: "Evite jargões e termos técnicos." }, { sub: "Objetividade", text: "Vá direto ao ponto com informações completas." }, { sub: "Correção", text: "Revise gramática e ortografia sempre." } ] },
+                            { id: 3, title: "2. Postagens Educativas", icon: "BookOpen", details: [ { sub: "Pautas", text: "Definidas pela Sec. de Comunicação baseada no interesse público." }, { sub: "Formato", text: "Preferencialmente Reels (vertical) ou Cards." }, { sub: "Conteúdo", text: "Eduque sobre direitos e serviços. Não repasse Fake News." } ] },
+                            { id: 4, title: "3. Transparência", icon: "CheckCircle", details: [ { sub: "Confiabilidade", text: "Verifique todas as fontes antes de postar." }, { sub: "Responsabilidade", text: "Assuma erros e corrija informações incorretas rapidamente." } ] },
+                            { id: 5, title: "4. Engajamento", icon: "Users", details: [ { sub: "Respostas", text: "Responda dúvidas com precisão e educação." }, { sub: "Feedback", text: "Use as redes para coletar sugestões da população." }, { sub: "Respeito", text: "Trate todos com respeito, mesmo em discordâncias." } ] },
+                            { id: 6, title: "5. Privacidade e Neutralidade", icon: "Shield", details: [ { sub: "Dados Pessoais", text: "Nunca compartilhe dados de cidadãos sem consentimento." }, { sub: "Imparcialidade", text: "Trate todos de forma justa, sem discriminação." }, { sub: "Sem Política", text: "Evite manifestações político-partidárias." } ] },
+                            { id: 7, title: "6. Imagens e Direitos", icon: "Camera", details: [ { sub: "Autorização", text: "Use imagens/vídeos apenas com permissão." }, { sub: "Créditos", text: "Sempre dê crédito aos autores." }, { sub: "Campanhas", text: "Devem estar de acordo com as leis vigentes." } ] },
+                            { id: 8, title: "7. Monitoramento e Ética", icon: "BarChart", details: [ { sub: "Análise", text: "Acompanhe o engajamento e ajuste estratégias." }, { sub: "Integridade", text: "Mantenha comportamento ético em todas interações." }, { sub: "Empatia", text: "Mostre compreensão, especialmente em reclamações." } ] },
+                            { id: 9, title: "Regras de Convivência", icon: "AlertTriangle", details: [ { sub: "Proibido", text: "Linguagem ofensiva, ameaças, spam e flood." }, { sub: "Preconceito", text: "Comentários racistas/LGBTfóbicos serão apagados e usuário bloqueado." }, { sub: "Consequências", text: "Advertência, ocultação ou bloqueio do perfil." } ] }
                         ];
-
-                        // Estilo Gradiente do Instagram para os textos e fundos
-                        const instaGradientText = {
-                            background: "linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4)",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent"
-                        };
-                        
+                        const instaGradientText = { background: "linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" };
                         const instaGradientBg = "linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)";
-
                         return (
                             <div className="animate-fade-in">
-                                <SectionHeader 
-                                    iconName="Users" 
-                                    title="Boas Práticas em Redes Sociais (Instagram, Facebook, TikTok)" 
-                                    duration="45 minutos"
-                                    isCompleted={completed[2]}
-                                    onToggle={() => toggleComplete(2)}
-                                />
+                                <SectionHeader iconName="Users" title="Boas Práticas em Redes Sociais (Instagram, Facebook, TikTok, etc)" duration="20 minutos" isCompleted={completed[3]} onToggle={() => toggleComplete(3)} />
                                 <div className="mb-6 bg-white p-6 rounded-xl shadow-sm border-l-4 border-pink-500">
                                     <h3 className="text-lg font-bold mb-2" style={instaGradientText}>Manual de Redes Sociais da PMF</h3>
-                                    <p className="text-gray-600">
-                                        As redes sociais são vitais para informar e engajar. Este guia, baseado no Manual da Prefeitura de Florianópolis, estabelece os padrões de interação, criação de conteúdo e ética digital.
-                                    </p>
+                                    <p className="text-gray-600">As redes sociais são vitais para informar e engajar. Este guia, baseado no Manual da Prefeitura de Florianópolis, estabelece os padrões de interação, criação de conteúdo e ética digital.</p>
                                 </div>
-                                
                                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                                     {socialMediaGuides.map((guide) => (
                                         <div key={guide.id} className="flip-card group bg-transparent w-full h-80 perspective-1000 cursor-pointer">
                                             <div className="flip-card-inner relative w-full h-full text-center transition-transform duration-700 transform-style-3d shadow-md rounded-xl">
-                                                
-                                                {/* Frente do Card */}
                                                 <div className="absolute w-full h-full backface-hidden bg-white border-2 border-pink-100 rounded-xl flex flex-col items-center justify-center p-6 text-gray-800">
-                                                    <div className="p-4 rounded-full mb-4 text-white shadow-md" style={{ background: instaGradientBg }}>
-                                                        {Icons[guide.icon] ? React.createElement(Icons[guide.icon], { size: 32 }) : null}
-                                                    </div>
+                                                    <div className="p-4 rounded-full mb-4 text-white shadow-md" style={{ background: instaGradientBg }}>{Icons[guide.icon] ? React.createElement(Icons[guide.icon], { size: 32 }) : null}</div>
                                                     <h3 className="text-xl font-bold" style={{ color: '#c13584' }}>{guide.title}</h3>
                                                     <p className="text-xs mt-4 uppercase tracking-widest font-semibold" style={{ color: '#e1306c' }}>Ver Detalhes</p>
                                                 </div>
-
-                                                {/* Verso do Card */}
                                                 <div className="absolute w-full h-full backface-hidden rotate-y-180 text-white rounded-xl p-6 flex flex-col justify-center text-left overflow-y-auto" style={{ background: instaGradientBg }}>
                                                     <h4 className="font-bold border-b border-white/30 pb-2 mb-3 text-lg">{guide.title}</h4>
-                                                    <ul className="space-y-3 text-sm">
-                                                        {guide.details.map((detail, idx) => (
-                                                            <li key={idx}>
-                                                                <span className="font-bold text-yellow-200 block text-xs">{detail.sub}</span>
-                                                                <span className="leading-tight">{detail.text}</span>
-                                                            </li>
-                                                        ))}
-                                                    </ul>
+                                                    <ul className="space-y-3 text-sm">{guide.details.map((detail, idx) => ( <li key={idx}><span className="font-bold text-yellow-200 block text-xs">{detail.sub}</span><span className="leading-tight">{detail.text}</span></li>))}</ul>
                                                 </div>
-
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                             </div>
                         );
-
-                    case 3: // Guias Oficiais (Renumerada)
+                    case 4:
                         return (
                             <div className="animate-fade-in">
-                                <SectionHeader 
-                                    iconName="Share2" 
-                                    title="Guias Oficiais para Leitura Complementar" 
-                                    duration="30 minutos"
-                                    isCompleted={completed[3]}
-                                    onToggle={() => toggleComplete(3)}
-                                />
+                                <SectionHeader iconName="Share2" title="Guias Oficiais para Leitura Complementar" duration="30 minutos" isCompleted={completed[4]} onToggle={() => toggleComplete(4)} />
                                 <div className="bg-gradient-to-br from-indigo-50 to-white rounded-xl shadow-sm p-8 text-center">
-                                    <p className="text-gray-700 mb-8 max-w-2xl mx-auto">
-                                        A comunicação clara e ética nas redes sociais fortalece a confiança do cidadão. 
-                                        Abaixo estão os guias oficiais para leitura.
-                                    </p>
-                                    
+                                    <p className="text-gray-700 mb-8 max-w-2xl mx-auto">A comunicação clara e ética nas redes sociais fortalece a confiança do cidadão. Abaixo estão os guias oficiais para leitura.</p>
                                     <div className="grid md:grid-cols-3 gap-6">
                                         <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex flex-col items-center hover:-translate-y-1 transition-transform">
-                                            <div className="bg-blue-100 p-4 rounded-full mb-4 text-blue-600">
-                                                <Icons.FileText size={32} />
-                                            </div>
+                                            <div className="bg-blue-100 p-4 rounded-full mb-4 text-blue-600"><Icons.FileText size={32} /></div>
                                             <h3 className="font-bold text-lg mb-2">Governo Federal</h3>
                                             <p className="text-xs text-gray-500 mb-6">Guia de referência nacional</p>
-                                            <a href="https://drive.google.com/file/d/1_R5nYjpGvb9xfYXqokFXwf3XITiKR70f/view?usp=sharing" target="_blank" className="mt-auto w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2 text-sm font-medium transition-colors">
-                                                Acessar Guia <Icons.ExternalLink size={14}/>
-                                            </a>
+                                            <a href="https://drive.google.com/file/d/1_R5nYjpGvb9xfYXqokFXwf3XITiKR70f/view?usp=sharing" target="_blank" className="mt-auto w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2 text-sm font-medium transition-colors">Acessar Guia <Icons.ExternalLink size={14}/></a>
                                         </div>
-
                                         <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex flex-col items-center hover:-translate-y-1 transition-transform">
-                                            <div className="bg-cyan-100 p-4 rounded-full mb-4 text-cyan-600">
-                                                <Icons.FileText size={32} />
-                                            </div>
+                                            <div className="bg-cyan-100 p-4 rounded-full mb-4 text-cyan-600"><Icons.FileText size={32} /></div>
                                             <h3 className="font-bold text-lg mb-2">Prefeitura de Florianópolis</h3>
                                             <p className="text-xs text-gray-500 mb-6">Guia de referência para profissionais da PMF.</p>
-                                            <a href="https://drive.google.com/file/d/1rj1-6gmb7rvxakaxAAkh7qEXSuY552WC/view?usp=sharing" target="_blank" className="mt-auto w-full py-2 px-4 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 flex items-center justify-center gap-2 text-sm font-medium transition-colors">
-                                                Acessar Guia <Icons.ExternalLink size={14}/>
-                                            </a>
+                                            <a href="https://drive.google.com/file/d/1rj1-6gmb7rvxakaxAAkh7qEXSuY552WC/view?usp=sharing" target="_blank" className="mt-auto w-full py-2 px-4 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 flex items-center justify-center gap-2 text-sm font-medium transition-colors">Acessar Guia <Icons.ExternalLink size={14}/></a>
                                         </div>
-
                                         <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex flex-col items-center hover:-translate-y-1 transition-transform">
-                                            <div className="bg-green-100 p-4 rounded-full mb-4 text-green-600">
-                                                <Icons.FileText size={32} />
-                                            </div>
+                                            <div className="bg-green-100 p-4 rounded-full mb-4 text-green-600"><Icons.FileText size={32} /></div>
                                             <h3 className="font-bold text-lg mb-2">Governo do RS</h3>
                                             <p className="text-xs text-gray-500 mb-6">Exemplo a nível estadual. Santa Catarina não disponibilizava guia publicado até a data da confecção deste material.</p>
-                                            <a href="https://drive.google.com/file/d/1G0aJwnFwviCdZup0DzkrxjqjxiZx-ZKH/view?usp=sharing" target="_blank" className="mt-auto w-full py-2 px-4 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center justify-center gap-2 text-sm font-medium transition-colors">
-                                                Acessar Guia <Icons.ExternalLink size={14}/>
-                                            </a>
+                                            <a href="https://drive.google.com/file/d/1G0aJwnFwviCdZup0DzkrxjqjxiZx-ZKH/view?usp=sharing" target="_blank" className="mt-auto w-full py-2 px-4 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center justify-center gap-2 text-sm font-medium transition-colors">Acessar Guia <Icons.ExternalLink size={14}/></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         );
-
-                    case 4: // Normas Legais (Renumerada)
-                        const portariaGuides = [
-                            {
-                                id: 1,
-                                title: "1. Cabeçalho",
-                                icon: "Layout",
-                                details: [
-                                    { sub: "Identificação", text: "Órgão emissor (ex: Ministério, Secretaria)." },
-                                    { sub: "Numeração/Data", text: "Sequencial e datada (ex: Portaria nº 123/2025)." },
-                                    { sub: "Localidade", text: "Cidade onde foi expedida." }
-                                ]
-                            },
-                            {
-                                id: 2,
-                                title: "2. Ementa",
-                                icon: "FileText",
-                                details: [
-                                    { sub: "Resumo", text: "Breve e objetivo do conteúdo." },
-                                    { sub: "Exemplo", text: "\"Dispõe sobre a regulamentação...\"" }
-                                ]
-                            },
-                            {
-                                id: 3,
-                                title: "3. Preâmbulo",
-                                icon: "BookOpen",
-                                details: [
-                                    { sub: "Fundamentação", text: "Base legal (Leis, decretos) que confere atribuição." },
-                                    { sub: "Motivação", text: "Justificativas iniciadas por \"Considerando...\"." }
-                                ]
-                            },
-                            {
-                                id: 4,
-                                title: "4. Corpo do Texto",
-                                icon: "FileText",
-                                details: [
-                                    { sub: "Artigos", text: "Segmentam temas principais (Art. 1º)." },
-                                    { sub: "Parágrafos", text: "Detalham o artigo (§ 1º)." },
-                                    { sub: "Incisos/Alíneas", text: "Listas específicas (I, II...)." }
-                                ]
-                            },
-                            {
-                                id: 5,
-                                title: "5. Cláusulas Finais",
-                                icon: "Clock",
-                                details: [
-                                    { sub: "Vigência", text: "Data que entra em vigor (ex: na publicação)." },
-                                    { sub: "Revogação", text: "Anula normas anteriores (\"Revogam-se...\")." }
-                                ]
-                            },
-                            {
-                                id: 6,
-                                title: "6. Assinatura",
-                                icon: "PenTool",
-                                details: [
-                                    { sub: "Autoridade", text: "Nome, cargo e assinatura do emissor." }
-                                ]
-                            },
-                            {
-                                id: 7,
-                                title: "7. Publicação",
-                                icon: "Share2",
-                                details: [
-                                    { sub: "Obrigatoriedade", text: "Deve ser publicada em Diário Oficial." },
-                                    { sub: "Efeito", text: "Garante a validade legal do ato." }
-                                ]
-                            }
-                        ];
-
+                    case 5: // Nova Atividade 5: Exercício Final
                         return (
                             <div className="animate-fade-in">
-                                <SectionHeader 
-                                    iconName="FileText" 
-                                    title="Estrutura de Portarias na Gestão Pública" 
-                                    duration="30 minutos"
-                                    isCompleted={completed[4]}
-                                    onToggle={() => toggleComplete(4)}
-                                />
-                                <div className="bg-white p-6 rounded-xl shadow-sm mb-6 border-l-4 border-blue-500">
-                                    <div className="flex items-start gap-4">
-                                        <Icons.Info className="text-blue-500 shrink-0 mt-1" />
-                                        <div>
-                                            <p className="text-gray-700">
-                                                A redação de normas institucionais como portarias, normas regulatórias, instruções normativas e regimentos internos, segue uma estrutura formal para assegurar clareza e conformidade jurídica. Neste documento nos aprofundaremos na estrutura para redação de uma portaria, por ser a norma mais utilizada pelo nosso público alvo, mas a lógica de base das demais normas não diferem muito desta estrutura apresentada. Passe o mouse (ou toque) nos cartões abaixo para entender cada componente.
-                                            </p>
-                                        </div>
+                                <SectionHeader iconName="ClipboardCheck" title="Exercício - Responda às perguntas do formulário para finalizar o conteúdo" duration="25 min" isCompleted={completed[5]} onToggle={() => toggleComplete(5)} />
+                                <div className="bg-white p-8 rounded-xl shadow-lg text-center">
+                                    <div className="mb-6 inline-block p-4 bg-teal-50 rounded-full">
+                                        <Icons.ClipboardCheck size={48} className="text-teal-600" />
                                     </div>
-                                </div>
-
-                                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                    {portariaGuides.map((guide) => (
-                                        <div key={guide.id} className="flip-card group bg-transparent w-full h-72 perspective-1000 cursor-pointer">
-                                            <div className="flip-card-inner relative w-full h-full text-center transition-transform duration-700 transform-style-3d shadow-md rounded-xl">
-                                                
-                                                {/* Frente do Card */}
-                                                <div className="absolute w-full h-full backface-hidden bg-white border-2 border-blue-100 rounded-xl flex flex-col items-center justify-center p-6 text-blue-800">
-                                                    <div className="bg-blue-100 p-4 rounded-full mb-4">
-                                                        {Icons[guide.icon] ? React.createElement(Icons[guide.icon], { size: 32 }) : null}
-                                                    </div>
-                                                    <h3 className="text-xl font-bold">{guide.title}</h3>
-                                                    <p className="text-xs text-blue-600 mt-4 uppercase tracking-widest font-semibold">Ver Detalhes</p>
-                                                </div>
-
-                                                {/* Verso do Card */}
-                                                <div className="absolute w-full h-full backface-hidden rotate-y-180 bg-blue-700 text-white rounded-xl p-6 flex flex-col justify-center text-left overflow-y-auto">
-                                                    <h4 className="font-bold border-b border-blue-500 pb-2 mb-3 text-lg">{guide.title}</h4>
-                                                    <ul className="space-y-3 text-sm">
-                                                        {guide.details.map((detail, idx) => (
-                                                            <li key={idx}>
-                                                                <span className="font-bold text-blue-200 block text-xs">{detail.sub}</span>
-                                                                <span className="leading-tight">{detail.text}</span>
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        );
-
-                    case 5: // Exercício Prático (Renumerada)
-                        return (
-                            <div className="animate-fade-in">
-                                <SectionHeader 
-                                    iconName="PenTool" 
-                                    title="Exercício: Redação de Portaria" 
-                                    duration="100 minutos"
-                                    isCompleted={completed[5]}
-                                    onToggle={() => toggleComplete(5)}
-                                />
-                                <div className="grid lg:grid-cols-5 gap-8">
-                                    <div className="lg:col-span-3 space-y-6">
-                                        <div className="bg-white p-6 rounded-xl shadow-sm border-t-4 border-orange-500">
-                                            <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                                                <Icons.User size={20} className="text-orange-500"/> Cenário: Pindaíba do Norte
-                                            </h3>
-                                            <p className="text-gray-700 mb-4">
-                                                Você é o <strong>Secretário Municipal de Saúde</strong>. Precisa publicar uma portaria regulamentando o funcionamento das UBS.
-                                            </p>
-                                            
-                                            <div className="bg-orange-50 p-4 rounded-lg space-y-3 text-sm text-gray-800">
-                                                <h4 className="font-bold border-b border-orange-200 pb-1 mb-2">Regras a Definir:</h4>
-                                                <ul className="list-disc pl-5 space-y-2">
-                                                    <li><strong>2+ Equipes de Saúde:</strong> 08h às 17h (sem fechar almoço).</li>
-                                                    <li><strong>1 Equipe:</strong> 08h às 17h (fecha 12h-13h).</li>
-                                                    <li><strong>Horário Estendido (até 21h):</strong> UBS Central, UBS Jardim Florido, UBS Buraco Fundo.</li>
-                                                    <li><strong>Equipe Mínima:</strong> Enquanto aberta, deve ter 1 médico e 1 enfermeira.</li>
-                                                    <li><strong>Vigência:</strong> 1º dia útil do próximo mês.</li>
-                                                </ul>
-                                            </div>
-
-                                            <div className="mt-4 p-4 bg-gray-100 rounded-lg text-sm">
-                                                <h4 className="font-bold text-gray-700 mb-2">Dados Legais:</h4>
-                                                <p><strong>Sua Nomeação:</strong> Art. IV da Lei Municipal 137 (12/11/1988).</p>
-                                                <p><strong>Revogar Portarias:</strong> 37 (2008), 238 (2018) e 139 (2019).</p>
-                                                <p><strong>Última Portaria Publicada:</strong> nº 122.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="lg:col-span-2 flex flex-col justify-center">
-                                        <div className="bg-teal-700 text-white p-8 rounded-xl shadow-lg text-center">
-                                            <Icons.PenTool size={48} className="mx-auto mb-4 opacity-80" />
-                                            <h3 className="text-2xl font-bold mb-2">Hora da Prática</h3>
-                                            <p className="opacity-90 mb-8">
-                                                Redija a portaria utilizando as informações do cenário e envie pelo formulário oficial.
-                                            </p>
-                                            <a 
-                                                href="https://forms.gle/pfCG8Aa9RxmgDDzL6" 
-                                                target="_blank"
-                                                className="inline-flex items-center justify-center gap-2 bg-white text-teal-800 font-bold py-3 px-6 rounded-full hover:bg-teal-50 hover:scale-105 transition-all w-full shadow-md"
-                                            >
-                                                Abrir Formulário de Envio <Icons.ExternalLink size={18} />
-                                            </a>
-                                        </div>
-                                    </div>
+                                    <h3 className="text-2xl font-bold text-gray-800 mb-4">Avaliação Final do Módulo</h3>
+                                    <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+                                        Parabéns por completar as atividades de estudo! Para consolidar seu aprendizado e finalizar este módulo, por favor, responda ao formulário de avaliação abaixo.
+                                    </p>
+                                    <a 
+                                        href="https://docs.google.com/forms/d/e/1FAIpQLSdmvfRxL1I9H3TcmSavbMRcPkqO7WCEMTc1kiPUIPYm51xjXQ/viewform?usp=header" 
+                                        target="_blank"
+                                        className="inline-flex items-center justify-center gap-3 bg-teal-600 text-white font-bold py-4 px-8 rounded-full hover:bg-teal-700 hover:scale-105 transition-all shadow-md text-lg"
+                                    >
+                                        Acessar Formulário de Avaliação <Icons.ExternalLink size={20} />
+                                    </a>
                                 </div>
                             </div>
                         );
@@ -837,78 +385,43 @@
                     {/* Mobile Header */}
                     <div className="md:hidden bg-teal-800 text-white p-4 flex justify-between items-center sticky top-0 z-50 shadow-md">
                         <span className="font-bold text-lg">ESP Floripa</span>
-                        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-                            {isSidebarOpen ? <Icons.X /> : <Icons.Menu />}
-                        </button>
+                        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>{isSidebarOpen ? <Icons.X /> : <Icons.Menu />}</button>
                     </div>
 
                     {/* Sidebar */}
-                    <aside className={`
-                        fixed md:sticky top-0 h-screen w-72 bg-white border-r border-gray-200 z-40 transform transition-transform duration-300 ease-in-out flex flex-col
-                        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0
-                    `}>
+                    <aside className={`fixed md:sticky top-0 h-screen w-72 bg-white border-r border-gray-200 z-40 transform transition-transform duration-300 ease-in-out flex flex-col ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
                         <div className="p-6 gradient-header text-white shrink-0">
                             <h1 className="font-bold text-xl leading-tight">Liderança e Gestão em Saúde</h1>
                             <p className="text-teal-100 text-sm mt-1">Especialização EAD</p>
-                            
                             <div className="mt-6">
-                                <div className="flex justify-between text-xs text-teal-100 mb-1">
-                                    <span>Progresso da Aula</span>
-                                    <span>{progress}%</span>
-                                </div>
-                                <div className="w-full bg-teal-900/30 rounded-full h-2">
-                                    <div className="bg-white h-2 rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div>
-                                </div>
+                                <div className="flex justify-between text-xs text-teal-100 mb-1"><span>Progresso da Aula</span><span>{progress}%</span></div>
+                                <div className="w-full bg-teal-900/30 rounded-full h-2"><div className="bg-white h-2 rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div></div>
                             </div>
                         </div>
-
                         <nav className="flex-1 overflow-y-auto py-4 px-2 space-y-1">
                             {activities.map((act) => (
-                                <button
-                                    key={act.id}
-                                    onClick={() => scrollToActivity(act.id)}
-                                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors ${
-                                        activeTab === act.id 
-                                        ? 'bg-teal-50 text-teal-800 border-r-4 border-teal-600 font-medium' 
-                                        : 'text-gray-600 hover:bg-gray-50'
-                                    }`}
-                                >
+                                <button key={act.id} onClick={() => scrollToActivity(act.id)} className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors ${activeTab === act.id ? 'bg-teal-50 text-teal-800 border-r-4 border-teal-600 font-medium' : 'text-gray-600 hover:bg-gray-50'}`}>
                                     <div className="relative">
                                         {Icons[act.icon] ? React.createElement(Icons[act.icon], { size: 18 }) : null}
-                                        {completed[act.id] && (
-                                            <div className="absolute -top-1 -right-1 bg-green-500 rounded-full p-[2px] border border-white">
-                                                <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
-                                            </div>
-                                        )}
+                                        {completed[act.id] && <div className="absolute -top-1 -right-1 bg-green-500 rounded-full p-[2px] border border-white"><div className="w-1.5 h-1.5 bg-white rounded-full"></div></div>}
                                     </div>
                                     <span className="text-sm truncate">{act.title}</span>
                                 </button>
                             ))}
                         </nav>
-                        
-                        <div className="p-4 border-t text-xs text-gray-400 text-center">
-                            © 2025 ESP-Floripa<br/>Todos os direitos reservados.
-                        </div>
+                        <div className="p-4 border-t text-xs text-gray-400 text-center">© 2025 ESP-Floripa<br/>Todos os direitos reservados.</div>
                     </aside>
 
                     {/* Main Content */}
                     <main className="flex-1 p-6 md:p-10 max-w-5xl mx-auto w-full">
                         <div className="mb-8 main-banner p-8 rounded-2xl shadow-md border border-gray-200">
                             <span className="text-teal-700 font-bold tracking-wide text-sm uppercase bg-white/80 px-2 py-1 rounded backdrop-blur-sm">Módulo EAD</span>
-                            <h2 className="text-3xl font-extrabold text-teal-900 mt-3 drop-shadow-sm">Comunicação Escrita Institucional interna, externa e em redes sociais</h2>
+                            <h2 className="text-3xl font-extrabold text-teal-900 mt-3 drop-shadow-sm">Comunicação Escrita - Meios eletrônicos</h2>
                             <p className="text-teal-900 font-medium mt-2 max-w-2xl bg-white/60 p-1 rounded backdrop-blur-sm inline-block">Atividades, leituras e exercícios práticos para gestão eficiente.</p>
                         </div>
-
                         {renderContent()}
                     </main>
-                    
-                    {/* Overlay for mobile sidebar */}
-                    {isSidebarOpen && (
-                        <div 
-                            className="fixed inset-0 bg-black/50 z-30 md:hidden"
-                            onClick={() => setIsSidebarOpen(false)}
-                        ></div>
-                    )}
+                    {isSidebarOpen && <div className="fixed inset-0 bg-black/50 z-30 md:hidden" onClick={() => setIsSidebarOpen(false)}></div>}
                 </div>
             );
         };
