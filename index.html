@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EAD - Comunicação Escrita (Parte 1) | ESP Floripa</title>
+    <title>Curso Livre - ESP Floripa</title>
     
     <!-- React & ReactDOM (Via CDN) -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -57,7 +57,7 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // --- Ícones SVG ---
+        // --- Ícones SVG (Convertidos de Lucide para Inline para funcionar sem build) ---
         const Icons = {
             BookOpen: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>,
             Play: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>,
@@ -82,7 +82,8 @@
             AlertTriangle: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>,
             Settings: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.1a2 2 0 0 1-1-1.72v-.51a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>,
             Home: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>,
-            ClipboardCheck: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            ClipboardCheck: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>,
+            GraduationCap: (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
         };
 
         const SectionHeader = ({ iconName, title, duration, isCompleted, onToggle }) => {
@@ -131,7 +132,7 @@
                 <div className="p-6 text-sm">
                     <div className="grid grid-cols-[80px_1fr] gap-y-2 mb-4 border-b pb-4">
                         <span className="text-gray-500 font-medium">De:</span>
-                        <span className="font-semibold text-gray-800">Antenor da Silva &lt;antenor.silva@saude.floripa.sc.gov.br&gt;</span>
+                        <span className="font-semibold text-gray-800 break-words">Antenor da Silva &lt;antenor.silva@saude.floripa.sc.gov.br&gt;</span>
                         <span className="text-gray-500 font-medium">Para:</span>
                         <span className="text-gray-800">José Santos</span>
                         <span className="text-gray-500 font-medium">Assunto:</span>
@@ -154,11 +155,96 @@
             </div>
         );
 
+        // --- Novo Componente de Tela de Login ---
+        const LoginScreen = ({ onLogin }) => {
+            const [password, setPassword] = useState('');
+            const [error, setError] = useState(false);
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                if (password === 'esp2025') {
+                    onLogin();
+                } else {
+                    setError(true);
+                }
+            };
+
+            return (
+                <div 
+                    className="min-h-screen flex items-center justify-center p-4 bg-cover bg-center bg-no-repeat relative"
+                    style={{ backgroundImage: "url('https://i.imgur.com/MNKsmTE.png')" }}
+                >
+                    {/* Overlay escuro para melhorar a legibilidade */}
+                    <div className="absolute inset-0 bg-black/60"></div>
+
+                    <div className="relative z-10 max-w-md w-full bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl overflow-hidden p-8 border border-white/20">
+                        <div className="text-center mb-8">
+                            <h1 className="text-xl font-bold text-gray-800 mb-2 leading-tight">Especialização em Liderança e Gestão em Saúde</h1>
+                            <h2 className="text-teal-700 font-semibold mb-2">Boas Práticas de Comunicação em Meios eletrônicos</h2>
+                            <p className="text-gray-600 text-sm font-medium">Escola de Saúde Pública de Florianópolis</p>
+                        </div>
+                        
+                        <div className="bg-orange-50 border-l-4 border-orange-400 p-4 mb-6 rounded-r text-left">
+                            <div className="flex gap-3">
+                                <Icons.Shield className="text-orange-500 shrink-0" size={20} />
+                                <p className="text-xs text-orange-800">
+                                    Conteúdo restrito aos alunos regularmente matriculados no curso
+                                </p>
+                            </div>
+                        </div>
+
+                        <form onSubmit={handleSubmit} className="text-left">
+                            <div className="mb-6">
+                                <label className="block text-gray-600 text-sm font-medium mb-2" htmlFor="password">
+                                    Por favor, insira a senha para acessar esta aula
+                                </label>
+                                <input
+                                    id="password"
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => {
+                                        setPassword(e.target.value);
+                                        setError(false);
+                                    }}
+                                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${error ? 'border-red-300 focus:ring-red-200' : 'border-gray-300 focus:ring-teal-200'}`}
+                                    placeholder="Senha"
+                                />
+                                {error && (
+                                    <p className="text-red-500 text-sm mt-2 flex items-center gap-1 animate-pulse">
+                                        <Icons.AlertTriangle size={14} /> Senha incorreta.
+                                    </p>
+                                )}
+                            </div>
+                            <button
+                                type="submit"
+                                className="w-full bg-teal-700 hover:bg-teal-800 text-white font-bold py-3 rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+                            >
+                                Entrar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            );
+        };
+
         const App = () => {
+            const [isAuthenticated, setIsAuthenticated] = useState(false);
             const [activeTab, setActiveTab] = useState(0);
-            // Agora com 5 estados de "completado" (0=Introdução + 4 Atividades)
-            const [completed, setCompleted] = useState([false, false, false, false, false, false]); 
+            const [completed, setCompleted] = useState([false, false, false, false, false, false, false]);
             const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+            const [isModalOpen, setIsModalOpen] = useState(false);
+            const [isImageZoomed, setIsImageZoomed] = useState(false);
+
+            useEffect(() => {
+                if (isAuthenticated) {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }, [activeTab, isAuthenticated]);
+
+            // Se não estiver autenticado, mostra a tela de login
+            if (!isAuthenticated) {
+                return <LoginScreen onLogin={() => setIsAuthenticated(true)} />;
+            }
 
             const toggleComplete = (index) => {
                 const newCompleted = [...completed];
@@ -166,66 +252,49 @@
                 setCompleted(newCompleted);
             };
 
-            // Cálculo do progresso (ignorando a Introdução se preferir, ou incluindo-a. Aqui inclui tudo)
             const progress = Math.round((completed.filter(Boolean).length / completed.length) * 100);
 
             const activities = [
                 { id: 0, title: "Introdução", icon: 'Home', duration: "5 min" },
                 { id: 1, title: "1ª Ativ: Boas Práticas E-mails", icon: 'Mail', duration: "20 min" },
-                { id: 2, title: "2ª Ativ: Boas Práticas no uso de Mensageria (Whatsapp, Telegram, SMS, etc.)", icon: 'MessageCircle', duration: "20 min" },
+                { id: 2, title: "2ª Ativ: Boas Práticas no uso de Mensageria", icon: 'MessageCircle', duration: "20 min" },
                 { id: 3, title: "3ª Ativ: Boas Práticas em Redes Sociais", icon: 'Users', duration: "20 min" },
                 { id: 4, title: "4ª Ativ: Guias Oficiais Leitura", icon: 'Share2', duration: "30 min" },
-                { id: 5, title: "5ª Ativ: Exercício Final", icon: 'ClipboardCheck', duration: "25 min" } // Nova Atividade
+                { id: 5, title: "5ª Ativ: Resumo em Infográfico", icon: 'BarChart', duration: "10 min" },
+                { id: 6, title: "6ª Ativ: Exercício Final", icon: 'ClipboardCheck', duration: "25 min" }
             ];
 
             const scrollToActivity = (index) => {
                 setActiveTab(index);
                 setIsSidebarOpen(false);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
             };
 
             const renderContent = () => {
                 switch(activeTab) {
-                    case 0: // Introdução
+                    case 0:
                         return (
                             <div className="animate-fade-in">
-                                <SectionHeader iconName="Home" title="Introdução ao Módulo" duration="5 minutos" isCompleted={completed[0]} onToggle={() => toggleComplete(0)} />
+                                <SectionHeader iconName="Home" title="Introdução ao Curso" duration="5 minutos" isCompleted={completed[0]} onToggle={() => toggleComplete(0)} />
                                 <div className="bg-white p-8 rounded-xl shadow-md border-l-4 border-teal-600 mb-8">
                                     <h3 className="text-xl font-bold text-teal-800 mb-4 flex items-center gap-2">
                                         <Icons.Info size={24} className="text-teal-600" />
                                         Importância das Boas Práticas na Comunicação
                                     </h3>
                                     <div className="text-gray-700 leading-relaxed text-justify space-y-4">
-                                        <p>
-                                            A adoção de Boas Práticas de comunicação por meios eletrônicos — como e-mail institucional, SMS, WhatsApp, Telegram e redes sociais — é essencial para instituições públicas, especialmente na área da saúde, pois garante segurança da informação, transparência, rastreabilidade e uniformidade no relacionamento com a população.
-                                        </p>
-                                        <p>
-                                            Esses canais, quando usados de forma padronizada e responsável, reduzem riscos de vazamento de dados sensíveis, fortalecem a credibilidade institucional, evitam ruídos de comunicação e asseguram que mensagens oficiais circulem com linguagem adequada, fontes verificadas e propósito alinhado às políticas públicas de saúde.
-                                        </p>
-                                        <p>
-                                            Além disso, boas práticas promovem comunicação mais ágil e acessível, ampliam o alcance das ações de educação em saúde e contribuem para a construção de vínculos de confiança entre gestores, profissionais e cidadãos.
-                                        </p>
+                                        <p>A adoção de Boas Práticas de comunicação por meios eletrônicos — como e-mail institucional, SMS, WhatsApp, Telegram e redes sociais — é essencial para instituições públicas, especialmente na área da saúde, pois garante segurança da informação, transparência, rastreabilidade e uniformidade no relacionamento com a população.</p>
+                                        <p>Esses canais, quando usados de forma padronizada e responsável, reduzem riscos de vazamento de dados sensíveis, fortalecem a credibilidade institucional, evitam ruídos de comunicação e asseguram que mensagens oficiais circulem com linguagem adequada, fontes verificadas e propósito alinhado às políticas públicas de saúde.</p>
+                                        <p>Além disso, boas práticas promovem comunicação mais ágil e acessível, ampliam o alcance das ações de educação em saúde e contribuem para a construção de vínculos de confiança entre gestores, profissionais e cidadãos.</p>
                                     </div>
                                 </div>
-                                
-                                {/* New Video Section */}
                                 <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
                                     <h3 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2">Assista ao vídeo:</h3>
                                     <div className="aspect-w-16 aspect-h-9 bg-gray-900 rounded-lg overflow-hidden shadow-lg mb-4">
-                                        <iframe 
-                                            className="w-full h-96" 
-                                            src="https://www.youtube.com/embed/fp9E830C7JI" 
-                                            title="YouTube video player" 
-                                            frameBorder="0" 
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                            allowFullScreen>
-                                        </iframe>
+                                        <iframe className="w-full h-64 md:h-96" src="https://www.youtube.com/embed/fp9E830C7JI" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                     </div>
                                 </div>
                             </div>
                         );
-
-                    case 1: // 1ª Ativ: Boas Práticas E-mails
+                    case 1:
                         return (
                             <div className="animate-fade-in">
                                 <SectionHeader iconName="Mail" title="Boas Práticas E-mails" duration="20 minutos" isCompleted={completed[1]} onToggle={() => toggleComplete(1)} />
@@ -234,7 +303,7 @@
                                         <h3 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2">Introdução: Vídeo Educativo</h3>
                                         <p className="text-gray-700 mb-4">Nos últimos anos o uso de e-mails em comunicações institucionais tem perdido espaço para aplicativos de mensagens, mas ainda é crucial em muitas situações formais. A redação adequada de e-mails institucionais é fundamental para garantir clareza, profissionalismo e eficiência na comunicação interna e externa da instituição. Mensagens bem estruturadas facilitam a compreensão, evitam retrabalhos, reduzem ruídos e reforçam a credibilidade da organização, além de contribuírem para registros formais precisos e rastreáveis, essenciais especialmente no serviço público e na área da saúde.</p>
                                         <div className="aspect-w-16 aspect-h-9 bg-gray-900 rounded-lg overflow-hidden shadow-lg mb-4">
-                                            <iframe className="w-full h-96" src="https://www.youtube.com/embed/E438kYS-I6k" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                                            <iframe className="w-full h-64 md:h-96" src="https://www.youtube.com/embed/E438kYS-I6k" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                         </div>
                                         <p className="text-sm text-gray-500 text-center italic">* Vídeo: The Email We All Need to Send (Harvard Business Review).</p>
                                     </div>
@@ -286,7 +355,9 @@
                                         <div key={guide.id} className="flip-card group bg-transparent w-full h-80 perspective-1000 cursor-pointer">
                                             <div className="flip-card-inner relative w-full h-full text-center transition-transform duration-700 transform-style-3d shadow-md rounded-xl">
                                                 <div className="absolute w-full h-full backface-hidden rounded-xl flex flex-col items-center justify-center p-6" style={{ backgroundColor: 'white', border: `2px solid ${waGreenBackground}` }}>
-                                                    <div className="p-4 rounded-full mb-4 text-white shadow-sm" style={{ backgroundColor: waGreenLight }}>{Icons[guide.icon] ? React.createElement(Icons[guide.icon], { size: 32 }) : null}</div>
+                                                    <div className="p-4 rounded-full mb-4 text-white shadow-sm" style={{ backgroundColor: waGreenLight }}>
+                                                        {Icons[guide.icon] ? React.createElement(Icons[guide.icon], { size: 32 }) : null}
+                                                    </div>
                                                     <h3 className="text-xl font-bold" style={{ color: waTeal }}>{guide.title}</h3>
                                                     <p className="text-xs mt-4 uppercase tracking-widest font-semibold" style={{ color: waGreenDark }}>Ver Detalhes</p>
                                                 </div>
@@ -326,7 +397,9 @@
                                         <div key={guide.id} className="flip-card group bg-transparent w-full h-80 perspective-1000 cursor-pointer">
                                             <div className="flip-card-inner relative w-full h-full text-center transition-transform duration-700 transform-style-3d shadow-md rounded-xl">
                                                 <div className="absolute w-full h-full backface-hidden bg-white border-2 border-pink-100 rounded-xl flex flex-col items-center justify-center p-6 text-gray-800">
-                                                    <div className="p-4 rounded-full mb-4 text-white shadow-md" style={{ background: instaGradientBg }}>{Icons[guide.icon] ? React.createElement(Icons[guide.icon], { size: 32 }) : null}</div>
+                                                    <div className="p-4 rounded-full mb-4 text-white shadow-md" style={{ background: instaGradientBg }}>
+                                                        {Icons[guide.icon] ? React.createElement(Icons[guide.icon], { size: 32 }) : null}
+                                                    </div>
                                                     <h3 className="text-xl font-bold" style={{ color: '#c13584' }}>{guide.title}</h3>
                                                     <p className="text-xs mt-4 uppercase tracking-widest font-semibold" style={{ color: '#e1306c' }}>Ver Detalhes</p>
                                                 </div>
@@ -351,28 +424,61 @@
                                             <div className="bg-blue-100 p-4 rounded-full mb-4 text-blue-600"><Icons.FileText size={32} /></div>
                                             <h3 className="font-bold text-lg mb-2">Governo Federal</h3>
                                             <p className="text-xs text-gray-500 mb-6">Guia de referência nacional</p>
-                                            <a href="https://drive.google.com/file/d/1_R5nYjpGvb9xfYXqokFXwf3XITiKR70f/view?usp=sharing" target="_blank" className="mt-auto w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2 text-sm font-medium transition-colors">Acessar Guia <Icons.ExternalLink size={14}/></a>
+                                            <a href="https://drive.google.com/file/d/1_R5nYjpGvb9xfYXqokFXwf3XITiKR70f/view?usp=sharing" target="_blank" rel="noreferrer" className="mt-auto w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2 text-sm font-medium transition-colors">Acessar Guia <Icons.ExternalLink size={14}/></a>
                                         </div>
                                         <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex flex-col items-center hover:-translate-y-1 transition-transform">
                                             <div className="bg-cyan-100 p-4 rounded-full mb-4 text-cyan-600"><Icons.FileText size={32} /></div>
                                             <h3 className="font-bold text-lg mb-2">Prefeitura de Florianópolis</h3>
                                             <p className="text-xs text-gray-500 mb-6">Guia de referência para profissionais da PMF.</p>
-                                            <a href="https://drive.google.com/file/d/1rj1-6gmb7rvxakaxAAkh7qEXSuY552WC/view?usp=sharing" target="_blank" className="mt-auto w-full py-2 px-4 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 flex items-center justify-center gap-2 text-sm font-medium transition-colors">Acessar Guia <Icons.ExternalLink size={14}/></a>
+                                            <a href="https://drive.google.com/file/d/1rj1-6gmb7rvxakaxAAkh7qEXSuY552WC/view?usp=sharing" target="_blank" rel="noreferrer" className="mt-auto w-full py-2 px-4 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 flex items-center justify-center gap-2 text-sm font-medium transition-colors">Acessar Guia <Icons.ExternalLink size={14}/></a>
                                         </div>
                                         <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 flex flex-col items-center hover:-translate-y-1 transition-transform">
                                             <div className="bg-green-100 p-4 rounded-full mb-4 text-green-600"><Icons.FileText size={32} /></div>
                                             <h3 className="font-bold text-lg mb-2">Governo do RS</h3>
                                             <p className="text-xs text-gray-500 mb-6">Exemplo a nível estadual. Santa Catarina não disponibilizava guia publicado até a data da confecção deste material.</p>
-                                            <a href="https://drive.google.com/file/d/1G0aJwnFwviCdZup0DzkrxjqjxiZx-ZKH/view?usp=sharing" target="_blank" className="mt-auto w-full py-2 px-4 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center justify-center gap-2 text-sm font-medium transition-colors">Acessar Guia <Icons.ExternalLink size={14}/></a>
+                                            <a href="https://drive.google.com/file/d/1G0aJwnFwviCdZup0DzkrxjqjxiZx-ZKH/view?usp=sharing" target="_blank" rel="noreferrer" className="mt-auto w-full py-2 px-4 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center justify-center gap-2 text-sm font-medium transition-colors">Acessar Guia <Icons.ExternalLink size={14}/></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         );
-                    case 5: // Nova Atividade 5: Exercício Final
+                    case 5: // Nova Atividade 5: Resumo em Infográfico
                         return (
                             <div className="animate-fade-in">
-                                <SectionHeader iconName="ClipboardCheck" title="Exercício - Responda às perguntas do formulário para finalizar o conteúdo" duration="25 min" isCompleted={completed[5]} onToggle={() => toggleComplete(5)} />
+                                <SectionHeader iconName="BarChart" title="Resumo em Infográfico" duration="10 minutos" isCompleted={completed[5]} onToggle={() => toggleComplete(5)} />
+                                <div className="bg-white p-6 rounded-xl shadow-sm">
+                                    <h3 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2">Resumo Visual</h3>
+                                    <p className="text-gray-700 mb-6">Confira abaixo um infográfico resumindo os principais pontos abordados no curso. Clique na imagem para ampliar.</p>
+                                    <img 
+                                        src="https://imgur.com/FCX7aBp.png" 
+                                        alt="Infográfico Resumo" 
+                                        className="w-full h-auto rounded-lg shadow-md cursor-zoom-in hover:opacity-95 transition-opacity"
+                                        onClick={() => setIsImageZoomed(true)}
+                                    />
+                                </div>
+                                
+                                {/* Modal de Zoom da Imagem */}
+                                {isImageZoomed && (
+                                    <div 
+                                        className="fixed inset-0 z-[60] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 cursor-zoom-out animate-fade-in"
+                                        onClick={() => setIsImageZoomed(false)}
+                                    >
+                                        <img 
+                                            src="https://imgur.com/FCX7aBp.png" 
+                                            alt="Infográfico Resumo Ampliado" 
+                                            className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                                        />
+                                        <button className="absolute top-4 right-4 text-white p-2 bg-black/50 rounded-full hover:bg-black/70">
+                                            <Icons.X size={32} />
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    case 6: // Renumerado: Exercício Final
+                        return (
+                            <div className="animate-fade-in">
+                                <SectionHeader iconName="ClipboardCheck" title="Exercício - Responda às perguntas do formulário para finalizar o conteúdo" duration="25 min" isCompleted={completed[6]} onToggle={() => toggleComplete(6)} />
                                 <div className="bg-white p-8 rounded-xl shadow-lg text-center">
                                     <div className="mb-6 inline-block p-4 bg-teal-50 rounded-full">
                                         <Icons.ClipboardCheck size={48} className="text-teal-600" />
@@ -382,8 +488,9 @@
                                         Parabéns por completar as atividades de estudo! Para consolidar seu aprendizado e finalizar este módulo, por favor, responda ao formulário de avaliação abaixo.
                                     </p>
                                     <a 
-                                        href="https://docs.google.com/forms/d/e/1FAIpQLSdmvfRxL1I9H3TcmSavbMRcPkqO7WCEMTc1kiPUIPYm51xjXQ/viewform?usp=header" 
+                                        href="https://docs.google.com/forms/d/e/1FAIpQLSccF69nPO9h_2Mf3x42vO9xlm0ooxeQNnRAtd80hHXYR6XYsw/viewform?usp=sharing&ouid=110410574929128285229" 
                                         target="_blank"
+                                        rel="noreferrer"
                                         className="inline-flex items-center justify-center gap-3 bg-teal-600 text-white font-bold py-4 px-8 rounded-full hover:bg-teal-700 hover:scale-105 transition-all shadow-md text-lg"
                                     >
                                         Acessar Formulário de Avaliação <Icons.ExternalLink size={20} />
@@ -400,14 +507,17 @@
                     {/* Mobile Header */}
                     <div className="md:hidden bg-teal-800 text-white p-4 flex justify-between items-center sticky top-0 z-50 shadow-md">
                         <span className="font-bold text-lg">ESP Floripa</span>
-                        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>{isSidebarOpen ? <Icons.X /> : <Icons.Menu />}</button>
+                        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+                            {isSidebarOpen ? <Icons.X /> : <Icons.Menu />}
+                        </button>
                     </div>
 
                     {/* Sidebar */}
                     <aside className={`fixed md:sticky top-0 h-screen w-72 bg-white border-r border-gray-200 z-40 transform transition-transform duration-300 ease-in-out flex flex-col ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
                         <div className="p-6 gradient-header text-white shrink-0">
-                            <h1 className="font-bold text-xl leading-tight">Liderança e Gestão em Saúde</h1>
-                            <p className="text-teal-100 text-sm mt-1">Especialização EAD</p>
+                            {/* <h1 className="font-bold text-xl leading-tight">Curso Livre</h1> - REMOVIDO conforme solicitado */}
+                            <p className="text-teal-100 text-sm mt-1">Escola de Saúde Pública de Florianópolis</p>
+                            
                             <div className="mt-6">
                                 <div className="flex justify-between text-xs text-teal-100 mb-1"><span>Progresso da Aula</span><span>{progress}%</span></div>
                                 <div className="w-full bg-teal-900/30 rounded-full h-2"><div className="bg-white h-2 rounded-full transition-all duration-500" style={{ width: `${progress}%` }}></div></div>
@@ -430,13 +540,41 @@
                     {/* Main Content */}
                     <main className="flex-1 p-6 md:p-10 max-w-5xl mx-auto w-full">
                         <div className="mb-8 main-banner p-8 rounded-2xl shadow-md border border-gray-200">
-                            <span className="text-teal-700 font-bold tracking-wide text-sm uppercase bg-white/80 px-2 py-1 rounded backdrop-blur-sm">Módulo EAD</span>
-                            <h2 className="text-3xl font-extrabold text-teal-900 mt-3 drop-shadow-sm">Comunicação Escrita - Meios eletrônicos</h2>
-                            <p className="text-teal-900 font-medium mt-2 max-w-2xl bg-white/60 p-1 rounded backdrop-blur-sm inline-block">Atividades, leituras e exercícios práticos para gestão eficiente.</p>
+                            {/* <span className="text-teal-700 font-bold tracking-wide text-sm uppercase bg-white/80 px-2 py-1 rounded backdrop-blur-sm">Curso Livre</span> - REMOVIDO conforme solicitado */}
+                            <h2 className="text-3xl font-extrabold text-teal-900 mt-3 drop-shadow-sm">Boas Práticas de Comunicação em Meios eletrônicos</h2>
+                            <p className="text-teal-900 font-medium mt-2 max-w-2xl bg-white/60 p-1 rounded backdrop-blur-sm inline-block">Atividades, leituras e exercícios práticos para o trabalho eficiente.</p>
+                            
+                            {/* Botões removidos conforme solicitado */}
                         </div>
                         {renderContent()}
                     </main>
                     {isSidebarOpen && <div className="fixed inset-0 bg-black/50 z-30 md:hidden" onClick={() => setIsSidebarOpen(false)}></div>}
+
+                    {/* Modal */}
+                    {isModalOpen && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+                            <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full p-6 relative animate-fade-in">
+                                <button 
+                                    onClick={() => setIsModalOpen(false)}
+                                    className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 p-2 rounded-full hover:bg-gray-100 transition-colors"
+                                >
+                                    <Icons.X size={24} />
+                                </button>
+                                <h3 className="text-2xl font-bold text-teal-900 mb-4">Instruções do Curso Livre</h3>
+                                <div className="text-slate-700">
+                                    <ol className="list-decimal list-inside space-y-3 text-base">
+                                        <li>Este Curso Livre é voltado para profissionais da SMS de Florianópolis e será certificado com a carga horária de 2 horas/aula.</li>
+                                        <li>Você deve clicar no botão disponível ao lado (ou <a href="https://espfloripa.github.io/cursoslivres/" target="_blank" rel="noopener noreferrer" className="text-teal-600 hover:underline font-semibold">aqui</a>) e preencher todos os campos para se inscrever no curso no mês corrente.</li>
+                                        <li>Após a inscrição realizada, você tem até o último dia do mês para responder o teste de aproveitamento disponibilizado no botão no fim da página.</li>
+                                        <li>Ao responder o teste de aproveitamento coloque o nome completo e CPF conforme você colocou no link de inscrição.</li>
+                                        <li>A nota de corte para aprovação é de 80%.</li>
+                                        <li>O teste de aproveitamento só permite uma resposta por participante, caso você não seja aprovado poderá repetir o curso no mês seguinte.</li>
+                                        <li>O certificado será disponibilizado até o último dia útil do mês seguinte à finalização do curso.</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             );
         };
